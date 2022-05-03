@@ -16,9 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Category Tracker',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData(primarySwatch: Colors.green),
       home: CategoryTracker(db, title: 'Item Counter'),
     );
   }
@@ -159,6 +157,10 @@ class _CategoryTrackerState extends State<CategoryTracker> {
               }
               showCategoryTabsDialog(() async {
                 try {
+                  if (widget.categoryNameController.text.isEmpty) {
+                    showErrorDialog('Value Must Not Be Empty');
+                    return;
+                  }
                   await widget.db.createSubCategory(
                     categories[selectedCategory].name ?? '',
                     widget.categoryNameController.text,
@@ -185,6 +187,10 @@ class _CategoryTrackerState extends State<CategoryTracker> {
             onTap: () async {
               Navigator.pop(context);
               showCategoryTabsDialog(() async {
+                if (widget.categoryNameController.text.isEmpty) {
+                  showErrorDialog('Value Must Not Be Empty');
+                  return;
+                }
                 try {
                   await widget.db.createCategory(
                     widget.categoryNameController.text,
@@ -338,7 +344,7 @@ class _CategoryTrackerState extends State<CategoryTracker> {
           ),
           TextButton(
             style: TextButton.styleFrom(
-              backgroundColor: Colors.blue,
+              backgroundColor: Colors.green,
             ),
             onPressed: () {
               Navigator.pop(context, 'OK');
@@ -347,7 +353,7 @@ class _CategoryTrackerState extends State<CategoryTracker> {
             child: const Text(
               'OK',
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.black,
               ),
             ),
           ),
@@ -368,7 +374,7 @@ class _CategoryTrackerState extends State<CategoryTracker> {
           ),
           TextButton(
             style: TextButton.styleFrom(
-              backgroundColor: Colors.blue,
+              backgroundColor: Colors.green,
             ),
             onPressed: () {
               Navigator.pop(context, 'OK');
@@ -377,7 +383,7 @@ class _CategoryTrackerState extends State<CategoryTracker> {
             child: const Text(
               'OK',
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.black,
               ),
             ),
           ),
@@ -394,7 +400,7 @@ class _CategoryTrackerState extends State<CategoryTracker> {
         actions: <Widget>[
           TextButton(
             style: TextButton.styleFrom(
-              backgroundColor: Colors.blue,
+              backgroundColor: Colors.green,
             ),
             onPressed: () {
               Navigator.pop(context, 'OK');
@@ -402,7 +408,7 @@ class _CategoryTrackerState extends State<CategoryTracker> {
             child: const Text(
               'OK',
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.black,
               ),
             ),
           ),
@@ -472,7 +478,7 @@ class _CategoryTrackerState extends State<CategoryTracker> {
       hintText: hintText,
       enabledBorder: const OutlineInputBorder(),
       focusedBorder: const OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.blue),
+        borderSide: BorderSide(color: Colors.green),
       ),
       errorBorder: const OutlineInputBorder(
         borderSide: BorderSide(color: Colors.red),
