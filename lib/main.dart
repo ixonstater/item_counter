@@ -334,6 +334,7 @@ class _CategoryTrackerState extends State<CategoryTracker> {
       builder: (BuildContext context) => AlertDialog(
         title: const Text('Category Editor'),
         content: TextField(
+          textCapitalization: TextCapitalization.words,
           controller: widget.categoryNameController,
           decoration: getTextFieldBorderDecoration('Category Name'),
         ),
