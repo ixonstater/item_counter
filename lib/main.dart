@@ -52,7 +52,7 @@ class _CategoryTrackerState extends State<CategoryTracker> {
   }
 
   void _addCategory() {
-    setState(() async {
+    setState(() {
       categories.add(Category(widget.categoryNameController.text, []));
       categories.sort();
     });

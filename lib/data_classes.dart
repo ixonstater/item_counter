@@ -19,7 +19,7 @@ class Category implements Comparable {
 
   @override
   int compareTo(other) {
-    return name?.compareTo(other.name ?? '') ?? 0;
+    return name?.toUpperCase().compareTo(other.name?.toUpperCase() ?? '') ?? 0;
   }
 }
 
@@ -45,6 +45,6 @@ class SubCategory implements Comparable {
 
   @override
   int compareTo(other) {
-    return name?.compareTo(other.name ?? '') ?? 0;
+    return name?.toUpperCase().compareTo(other.name?.toUpperCase() ?? '') ?? 0;
   }
 }

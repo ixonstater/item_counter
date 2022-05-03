@@ -112,13 +112,16 @@ class Persistence {
     if (snubCalls) {
       return categories;
     }
-    var categoryDb = await db.query('categories', orderBy: 'category_name');
+    var categoryDb = await db.query(
+      'categories',
+      orderBy: 'category_name COLLATE NOCASE',
+    );
     for (var category in categoryDb) {
       var subCategoriesDb = await db.query(
         'sub_categories',
         where: 'category_name = ?',
         whereArgs: [category['category_name']],
-        orderBy: 'sub_category_name',
+        orderBy: 'sub_category_name COLLATE NOCASE',
       );
       var subCategories = <SubCategory>[];
       for (var subCategory in subCategoriesDb) {
