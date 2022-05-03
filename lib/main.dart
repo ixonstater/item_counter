@@ -57,6 +57,7 @@ class _CategoryTrackerState extends State<CategoryTracker> {
     setState(() {
       widget.db.createCategory(widget.categoryNameController.text);
       categories.add(Category(widget.categoryNameController.text, []));
+      categories.sort();
     });
   }
 
