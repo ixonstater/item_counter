@@ -54,8 +54,7 @@ class _CategoryTrackerState extends State<CategoryTracker> {
   }
 
   void _addCategory() {
-    setState(() {
-      widget.db.createCategory(widget.categoryNameController.text);
+    setState(() async {
       categories.add(Category(widget.categoryNameController.text, []));
       categories.sort();
     });
@@ -74,8 +73,13 @@ class _CategoryTrackerState extends State<CategoryTracker> {
   void _resetAllCategories() {
     setState(() {
       for (var category in categories) {
-        for (var subCategory in category.subCategories ?? []) {
+        for (var subCategory in category.subCategories ?? <SubCategory>[]) {
           subCategory.reset();
+          widget.db.updateSubCategory(
+            0,
+            subCategory.name ?? '',
+            category.name ?? '',
+          );
         }
       }
     });
@@ -117,10 +121,6 @@ class _CategoryTrackerState extends State<CategoryTracker> {
 
   void _addSubCategory() {
     setState(() {
-      widget.db.createSubCategory(
-        categories[selectedCategory].name ?? '',
-        widget.categoryNameController.text,
-      );
       categories[selectedCategory]
           .addSubCategory(widget.categoryNameController.text);
     });
@@ -157,7 +157,17 @@ class _CategoryTrackerState extends State<CategoryTracker> {
               if (categories.isEmpty) {
                 return;
               }
-              showCategoryTabsDialog(_addSubCategory);
+              showCategoryTabsDialog(() async {
+                try {
+                  await widget.db.createSubCategory(
+                    categories[selectedCategory].name ?? '',
+                    widget.categoryNameController.text,
+                  );
+                  _addSubCategory();
+                } catch (e) {
+                  showErrorDialog('Sub-Category Already Exists');
+                }
+              });
             },
             tooltip: 'Add Sub Category',
             child: const Icon(Icons.add),
@@ -172,11 +182,18 @@ class _CategoryTrackerState extends State<CategoryTracker> {
       child: ListView(
         children: [
           InkWell(
-            onTap: () {
+            onTap: () async {
               Navigator.pop(context);
-              showCategoryTabsDialog(
-                _addCategory,
-              );
+              showCategoryTabsDialog(() async {
+                try {
+                  await widget.db.createCategory(
+                    widget.categoryNameController.text,
+                  );
+                  _addCategory();
+                } catch (e) {
+                  showErrorDialog('Category Already Exists');
+                }
+              });
             },
             child: Row(
               children: const [
@@ -241,7 +258,7 @@ class _CategoryTrackerState extends State<CategoryTracker> {
               Navigator.pop(context);
               showConfirmDialog(
                 _resetAllCategories,
-                'Restore All Sub-Categories?',
+                'Reset all sub-categories to zero?',
               );
             },
             child: Row(
@@ -252,7 +269,7 @@ class _CategoryTrackerState extends State<CategoryTracker> {
                   width: 10,
                   height: 60,
                 ),
-                Text('Restore Sub-Categories'),
+                Text('Reset Sub-Categories'),
               ],
             ),
           ),
@@ -356,6 +373,31 @@ class _CategoryTrackerState extends State<CategoryTracker> {
             onPressed: () {
               Navigator.pop(context, 'OK');
               onOkay();
+            },
+            child: const Text(
+              'OK',
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void showErrorDialog(String title) {
+    showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: Text(title),
+        actions: <Widget>[
+          TextButton(
+            style: TextButton.styleFrom(
+              backgroundColor: Colors.blue,
+            ),
+            onPressed: () {
+              Navigator.pop(context, 'OK');
             },
             child: const Text(
               'OK',
