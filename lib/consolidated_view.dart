@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:presentation/data_classes.dart';
+import 'package:item_counter/data_classes.dart';
 
 class ConsolidatedView extends StatelessWidget {
   final List<Category>? categories;

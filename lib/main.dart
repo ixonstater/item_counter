@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:presentation/consolidated_view.dart';
-import 'package:presentation/persistence.dart';
+import 'package:item_counter/consolidated_view.dart';
+import 'package:item_counter/persistence.dart';
 import 'data_classes.dart';
 
 void main() async {
