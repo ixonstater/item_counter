@@ -15,9 +15,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Category Tracker',
+      title: 'Flower Count',
       theme: ThemeData(primarySwatch: Colors.green),
-      home: CategoryTracker(db, title: 'Item Counter'),
+      home: CategoryTracker(db, title: 'Flower Count'),
     );
   }
 }
