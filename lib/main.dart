@@ -201,8 +201,8 @@ class _CategoryTrackerState extends State<CategoryTracker> {
                 }
               });
             },
-            child: Row(
-              children: const [
+            child: const Row(
+              children: [
                 SizedBox(width: 10),
                 Icon(Icons.add_circle),
                 SizedBox(
@@ -224,8 +224,8 @@ class _CategoryTrackerState extends State<CategoryTracker> {
                 'Remove Full Category?',
               );
             },
-            child: Row(
-              children: const [
+            child: const Row(
+              children: [
                 SizedBox(width: 10),
                 Icon(Icons.remove_circle),
                 SizedBox(
@@ -247,8 +247,8 @@ class _CategoryTrackerState extends State<CategoryTracker> {
                 editText: categories[selectedCategory].name,
               );
             },
-            child: Row(
-              children: const [
+            child: const Row(
+              children: [
                 SizedBox(width: 10),
                 Icon(Icons.edit),
                 SizedBox(
@@ -267,8 +267,8 @@ class _CategoryTrackerState extends State<CategoryTracker> {
                 'Reset all sub-categories to zero?',
               );
             },
-            child: Row(
-              children: const [
+            child: const Row(
+              children: [
                 SizedBox(width: 10),
                 Icon(Icons.restore),
                 SizedBox(
@@ -293,8 +293,8 @@ class _CategoryTrackerState extends State<CategoryTracker> {
                 ),
               );
             },
-            child: Row(
-              children: const [
+            child: const Row(
+              children: [
                 SizedBox(width: 10),
                 Icon(Icons.view_list),
                 SizedBox(
